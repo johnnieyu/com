@@ -34,12 +34,12 @@ export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
     pronouns: 'He/Him',
   },
   seo: {
-    title: 'CV Folio — An Astro template inspired on Read.cv',
-    description: 'Clean and aesthetic portfolio website for developers and designers',
+    title: 'Johnnie Yu (俞润中)',
+    description: 'Hi, I\'m Johnnie, a consumer investor at Listen based in New York.',
     type: 'website',
     image: MetaDefaultImage,
     twitter: {
-      creator: '@cvfolio'
+      creator: '@johnnieryu'
     },
     robots: 'noindex, nofollow',
   }
