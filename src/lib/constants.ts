@@ -24,13 +24,13 @@ type DefaultConfigurationType = {
 }
 
 export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
-  baseUrl: astroConfig.site || 'https://getcvfolio.com',
+  baseUrl: astroConfig.site || 'https://www.johnnieyu.com',
   author: {
     avatar,
-    name: 'Javier Diaz Chamorro',
-    headline: 'Engineering and Design',
-    username: 'coderdiaz',
-    location: 'Mexico City',
+    name: 'Johnnie Yu (俞润中)',
+    headline: 'Consumer Investor @ Listen',
+    username: 'johnnieyu.com',
+    location: 'New York',
     pronouns: 'He/Him',
   },
   seo: {
