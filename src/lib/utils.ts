@@ -31,6 +31,6 @@ export const sortJobsByDate = (jobs: CollectionEntry<'jobs'>[]) => {
   return jobs.sort((current, next) => {
     // Compare end years first, then fall back to start years if end years are equal
     const [currentEnd, nextEnd] = [getEndYear(current), getEndYear(next)];
-    return nextEnd - currentEnd || next.data.from - current.data.from;
+    return currentEnd - nextEnd || current.data.from - next.data.from;
   });
 };

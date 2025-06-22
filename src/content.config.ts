@@ -48,8 +48,8 @@ const jobCollection = defineCollection({
   }),
 });
 
-const talkCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/talks' }),
+const transactionCollection = defineCollection({
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/transactions' }),
   schema: z.object({
     title: z.string(),
     year: z.number(),
@@ -73,6 +73,6 @@ export const collections = {
   pages: pageCollection,
   links: linkCollection,
   jobs: jobCollection,
-  talks: talkCollection,
+  transactions: transactionCollection,
   posts: postCollection,
 };

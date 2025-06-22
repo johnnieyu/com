@@ -28,7 +28,7 @@ export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
   author: {
     avatar,
     name: 'Johnnie Yu (俞润中)',
-    headline: 'Consumer Investor @ Listen',
+    headline: 'Investor @ Listen',
     username: 'johnnieyu.com',
     location: 'New York',
     pronouns: 'He/Him',
