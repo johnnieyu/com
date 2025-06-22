@@ -35,8 +35,7 @@ export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
   },
   seo: {
     title: 'Johnnie Yu (俞润中)',
-    description: '  description: Hi, I\'m Johnnie Yu, a twenty-something year old consumer investor and self-proclaimed brand nerd and futurist, currently living and working in New York City.
-',
+    description: `Hi, I'm Johnnie Yu, a twenty-something year old consumer investor and self-proclaimed brand nerd and futurist, currently living and working in New York City.`,
     type: 'website',
     image: MetaDefaultImage,
     twitter: {
