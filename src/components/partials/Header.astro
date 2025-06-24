@@ -5,6 +5,7 @@ const pathname = Astro.url.pathname;
 
 const isHomePage = pathname === '/';
 const isWritingPage = pathname.startsWith('/writing');
+const isBookmarksPage = pathname === '/updates';
 
 ---
 
@@ -25,6 +26,13 @@ const isWritingPage = pathname.startsWith('/writing');
             'hover:text-headings',
             isWritingPage && 'text-headings bg-muted-foreground/40 rounded-full',
           ]}>Writing</a>
+        </li>
+        <li>
+          <a href="/updates" class:list={[
+            'font-medium transition-colors block px-5 py-2',
+            'hover:text-headings',
+            isBookmarksPage && 'text-headings bg-muted-foreground/40 rounded-full',
+          ]}>Bookmarks</a>
         </li>
       </ul>
     </nav>

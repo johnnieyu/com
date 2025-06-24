@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import Author from '@/components/ui/Author.astro';
+import Bookmark from '@/components/ui/Bookmark.astro';
+import SearchBar from '@/components/ui/SearchBar.astro';
+import { DEFAULT_CONFIGURATION } from '@/lib/constants';
+import { getCollection } from 'astro:content';
+
+const seo = {
+  title: 'Bookmarks',
+  description: 'Bookmarked resources and links',
+};
+
+const bookmarks = await getCollection('bookmarks');
+// Sort by date (newest first) if date exists, otherwise by title
+const sortedBookmarks = bookmarks.sort((a, b) => {
+  if (a.data.date && b.data.date) {
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  }
+  return a.data.title.localeCompare(b.data.title);
+});
+---
+
+<BaseLayout seo={seo}>
+  <Container as='section' class='py-6'>
+    <Author {...DEFAULT_CONFIGURATION.author} />
+  </Container>
+
+  <Container as='section' class='py-6'>
+    <div class="flex flex-col gap-6">
+      <div class="flex items-center">
+        <span class="text-headings">Bookmarks</span>
+      </div>
+      
+      <SearchBar searchQuery="" selectedType="" />
+      
+      <div class="flex flex-col gap-2 max-w-4xl mx-auto px-2 pt-4 pb-16 sm:py-4">
+        {sortedBookmarks.map((bookmark) => (
+          <Bookmark entry={bookmark} />
+        ))}
+      </div>
+    </div>
+  </Container>
+</BaseLayout> 

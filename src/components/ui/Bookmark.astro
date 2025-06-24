@@ -1,0 +1,43 @@
+---
+type Props = {
+  entry: any;
+};
+
+const { entry } = Astro.props;
+
+const getTypeColor = (type: string) => {
+  switch (type) {
+    case 'article':
+      return 'bg-violet-300';
+    case 'video':
+      return 'bg-teal-300';
+    case 'misc':
+      return 'bg-rose-300';
+    default:
+      return 'bg-gray-300';
+  }
+};
+
+const dotColor = getTypeColor(entry.data.type);
+---
+
+<a 
+  target="_blank" 
+  rel="noopener noreferrer"
+  href={entry.data.url}
+  class="link-to-animate flex cursor-pointer items-start justify-between rounded-lg px-4 py-2 hover:bg-muted-foreground/10 transition-colors duration-200"
+  data-bookmark="true"
+  data-title={entry.data.title}
+  data-type={entry.data.type}
+>
+  <div class="flex w-full flex-col">
+    <div class="flex items-center justify-between">
+      <h2 class="font-regular text-primary mr-4 transition-colors duration-200">
+        {entry.data.title}
+      </h2>
+      <div class="flex items-center gap-2">
+        <span class="inline-block h-2 w-2 rounded-full" class:list={[dotColor]}></span>
+      </div>
+    </div>
+  </div>
+</a> 

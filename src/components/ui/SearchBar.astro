@@ -1,0 +1,107 @@
+---
+type Props = {
+  searchQuery: string;
+  selectedType: string;
+};
+
+const { searchQuery, selectedType } = Astro.props;
+---
+
+<div class="w-full text-foreground px-4">
+  <div class="space-y-4">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+      <input 
+        placeholder="Search by title..." 
+        class="w-full sm:w-7/12 text-muted-foreground border border-muted-foreground/30 text-sm rounded-lg px-3 py-2 outline-none focus:outline-none focus:ring-0 focus:border-muted-foreground/80 transition-all duration-300" 
+        type="text" 
+        value={searchQuery}
+        id="search-input"
+      />
+      <div class="flex flex-wrap justify-start sm:justify-center gap-2 items-center">
+        <button 
+          class="flex items-center gap-2 px-2 py-1 rounded-full transition-all duration-300 ease-in-out bg-muted-foreground/10 text-foreground hover:bg-opacity-70 hover:scale-105"
+          data-type="article"
+          id="filter-article"
+        >
+          <span class="inline-block h-2 w-2 rounded-full bg-violet-300"></span>
+          <span class="text-xs font-medium">Article</span>
+        </button>
+        <button 
+          class="flex items-center gap-2 px-2 py-1 rounded-full transition-all duration-300 ease-in-out bg-muted-foreground/10 text-foreground hover:bg-opacity-70 hover:scale-105"
+          data-type="video"
+          id="filter-video"
+        >
+          <span class="inline-block h-2 w-2 rounded-full bg-teal-300"></span>
+          <span class="text-xs font-medium">Video</span>
+        </button>
+        <button 
+          class="flex items-center gap-2 px-2 py-1 rounded-full transition-all duration-300 ease-in-out bg-muted-foreground/10 text-foreground hover:bg-opacity-70 hover:scale-105"
+          data-type="misc"
+          id="filter-misc"
+        >
+          <span class="inline-block h-2 w-2 rounded-full bg-rose-300"></span>
+          <span class="text-xs font-medium">Misc</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Search and filter functionality
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const filterButtons = document.querySelectorAll('[data-type]');
+  const bookmarkItems = document.querySelectorAll('[data-bookmark]');
+
+  let currentSearch = '';
+  let currentFilter = '';
+
+  function filterBookmarks() {
+    bookmarkItems.forEach((item) => {
+      const title = item.getAttribute('data-title')?.toLowerCase() || '';
+      const type = item.getAttribute('data-type') || '';
+      
+      const matchesSearch = title.includes(currentSearch.toLowerCase());
+      const matchesFilter = !currentFilter || type === currentFilter;
+      
+      if (matchesSearch && matchesFilter) {
+        (item as HTMLElement).style.display = 'block';
+      } else {
+        (item as HTMLElement).style.display = 'none';
+      }
+    });
+  }
+
+  // Search input handler
+  searchInput?.addEventListener('input', (e) => {
+    currentSearch = (e.target as HTMLInputElement).value;
+    filterBookmarks();
+  });
+
+  // Filter button handlers
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const type = button.getAttribute('data-type');
+      
+      // Toggle filter
+      if (currentFilter === type) {
+        currentFilter = '';
+        button.classList.remove('bg-primary', 'text-secondary');
+        button.classList.add('bg-muted-foreground/20', 'text-foreground');
+      } else {
+        // Remove active state from all buttons
+        filterButtons.forEach((btn) => {
+          btn.classList.remove('bg-primary', 'text-secondary');
+          btn.classList.add('bg-muted-foreground/20', 'text-foreground');
+        });
+        
+        // Add active state to clicked button
+        currentFilter = type || '';
+        button.classList.remove('bg-muted-foreground/20', 'text-foreground');
+        button.classList.add('bg-primary', 'text-secondary');
+      }
+      
+      filterBookmarks();
+    });
+  });
+</script> 

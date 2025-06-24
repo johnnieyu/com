@@ -69,10 +69,22 @@ const postCollection = defineCollection({
   }),
 });
 
+const bookmarkCollection = defineCollection({
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/bookmarks' }),
+  schema: z.object({
+    title: z.string(),
+    type: z.enum(['article', 'video', 'misc']),
+    url: z.string().url(),
+    description: z.string().optional(),
+    date: z.date().optional(),
+  }),
+});
+
 export const collections = {
   pages: pageCollection,
   links: linkCollection,
   jobs: jobCollection,
   transactions: transactionCollection,
   posts: postCollection,
+  bookmarks: bookmarkCollection,
 };
