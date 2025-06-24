@@ -12,14 +12,14 @@ const { searchQuery, selectedType } = Astro.props;
     <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
       <input 
         placeholder="Search by title..." 
-        class="w-full sm:w-7/12 text-muted-foreground border border-muted-foreground/30 text-sm rounded-lg px-3 py-2 outline-none focus:outline-none focus:ring-0 focus:border-muted-foreground/80 transition-all duration-300" 
+        class="w-full sm:w-7/12 text-foreground border border-muted-foreground/50 text-sm rounded-lg px-3 py-2 outline-none focus:outline-none focus:ring-0 focus:border-muted-foreground/80 transition-all duration-300" 
         type="text" 
         value={searchQuery}
         id="search-input"
       />
       <div class="flex flex-wrap justify-start sm:justify-center gap-2 items-center">
         <button 
-          class="flex items-center gap-2 px-2 py-1 rounded-full transition-all duration-300 ease-in-out bg-muted-foreground/10 text-foreground hover:bg-opacity-70 hover:scale-105"
+          class="flex items-center gap-2 px-2 py-1 rounded-full transition-all duration-300 ease-in-out bg-transparent text-foreground hover:bg-muted-foreground/10 hover:scale-105"
           data-type="article"
           id="filter-article"
         >
@@ -27,7 +27,7 @@ const { searchQuery, selectedType } = Astro.props;
           <span class="text-xs font-medium">Article</span>
         </button>
         <button 
-          class="flex items-center gap-2 px-2 py-1 rounded-full transition-all duration-300 ease-in-out bg-muted-foreground/10 text-foreground hover:bg-opacity-70 hover:scale-105"
+          class="flex items-center gap-2 px-2 py-1 rounded-full transition-all duration-300 ease-in-out bg-transparent text-foreground hover:bg-muted-foreground/10 hover:scale-105"
           data-type="video"
           id="filter-video"
         >
@@ -35,7 +35,7 @@ const { searchQuery, selectedType } = Astro.props;
           <span class="text-xs font-medium">Video</span>
         </button>
         <button 
-          class="flex items-center gap-2 px-2 py-1 rounded-full transition-all duration-300 ease-in-out bg-muted-foreground/10 text-foreground hover:bg-opacity-70 hover:scale-105"
+          class="flex items-center gap-2 px-2 py-1 rounded-full transition-all duration-300 ease-in-out bg-transparent text-foreground hover:bg-muted-foreground/10 hover:scale-105"
           data-type="misc"
           id="filter-misc"
         >
@@ -85,20 +85,23 @@ const { searchQuery, selectedType } = Astro.props;
       
       // Toggle filter
       if (currentFilter === type) {
+        // If clicking the same button, deselect all (back to default state)
         currentFilter = '';
-        button.classList.remove('bg-primary', 'text-secondary');
-        button.classList.add('bg-muted-foreground/20', 'text-foreground');
-      } else {
-        // Remove active state from all buttons
         filterButtons.forEach((btn) => {
-          btn.classList.remove('bg-primary', 'text-secondary');
-          btn.classList.add('bg-muted-foreground/20', 'text-foreground');
+          btn.classList.remove('bg-transparent', 'hover:bg-muted-foreground/10', 'bg-muted-foreground/10', 'hover:bg-muted-foreground/20', 'bg-muted-foreground/5', 'hover:bg-muted-foreground/15');
+          btn.classList.add('bg-transparent', 'hover:bg-muted-foreground/10');
+        });
+      } else {
+        // Select the clicked button, make others transparent
+        currentFilter = type || '';
+        filterButtons.forEach((btn) => {
+          btn.classList.remove('bg-muted-foreground/10', 'hover:bg-muted-foreground/20', 'bg-muted-foreground/5', 'hover:bg-muted-foreground/15');
+          btn.classList.add('bg-transparent', 'hover:bg-muted-foreground/10');
         });
         
-        // Add active state to clicked button
-        currentFilter = type || '';
-        button.classList.remove('bg-muted-foreground/20', 'text-foreground');
-        button.classList.add('bg-primary', 'text-secondary');
+        // Keep the selected button with /10 background
+        button.classList.remove('bg-transparent', 'hover:bg-muted-foreground/10');
+        button.classList.add('bg-muted-foreground/10', 'hover:bg-muted-foreground/20');
       }
       
       filterBookmarks();
