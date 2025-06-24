@@ -5,7 +5,7 @@ const pathname = Astro.url.pathname;
 
 const isHomePage = pathname === '/';
 const isWritingPage = pathname.startsWith('/writing');
-const isBookmarksPage = pathname === '/bookmarks';
+const isBookmarksPage = pathname.startsWith('/bookmarks');
 
 ---
 
