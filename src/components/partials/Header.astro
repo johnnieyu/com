@@ -6,6 +6,7 @@ const pathname = Astro.url.pathname;
 const isHomePage = pathname === '/';
 const isWritingPage = pathname.startsWith('/writing');
 const isBookmarksPage = pathname.startsWith('/bookmarks');
+const isYourNewPage = pathname.startsWith('/your-new-page');
 
 ---
 
@@ -26,6 +27,13 @@ const isBookmarksPage = pathname.startsWith('/bookmarks');
             'hover:text-headings',
             isBookmarksPage && 'text-headings bg-muted-foreground/40 rounded-full',
           ]}>Bookmarks</a>
+        </li>
+        <li>
+          <a href="https://archive.johnnieyu.com/" class:list={[
+            'font-medium transition-colors block px-5 py-2',
+            'hover:text-headings',
+            isYourNewPage && 'text-headings bg-muted-foreground/40 rounded-full',
+          ]}>Archive</a>
         </li>
       </ul>
     </nav>
